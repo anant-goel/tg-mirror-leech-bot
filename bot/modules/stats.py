@@ -3,9 +3,10 @@
 from psutil import disk_usage, cpu_percent, swap_memory, cpu_count, virtual_memory, net_io_counters
 from bot.helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time
 from time import time
+from telegram import ParseMode
 from subprocess import run
 import requests
-from bot import LOGGER, dispatcher, botStartTime, HEROKU_API_KEY, HEROKU_APP_NAME
+from bot import LOGGER, dispatcher, botStartTime, HEROKU_API_KEY, HEROKU_APP_NAME, IMAGE_URL
 from telegram.ext import CommandHandler
 from bot.helper.telegram_helper.message_utils import sendMessage
 from bot.helper.telegram_helper.filters import CustomFilters
@@ -105,6 +106,7 @@ def stats(update, context):
             f'<b>Memory Used:</b> {mem_u}\n'
     heroku = getHerokuDetails(HEROKU_API_KEY, HEROKU_APP_NAME)
     if heroku: stats += heroku
+    update.effective_message.reply_photo(IMAGE_URL, stats, parse_mode=ParseMode.HTML)    
     sendMessage(stats, context.bot, update)
 
 stats_handler = CommandHandler(BotCommands.StatsCommand, stats,
