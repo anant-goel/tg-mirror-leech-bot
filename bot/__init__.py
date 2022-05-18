@@ -49,6 +49,13 @@ load_dotenv('config.env', override=True)
 
 def getConfig(name: str):
     return environ[name]
+  
+try:
+    fx = getConfig('EXTENTION_FILTER')
+    if len(fx) > 0:
+        fx = fx.split(' ')
+        for x in fx:
+            EXTENTION_FILTER.add(x.lower())  
 
 try:
     NETRC_URL = getConfig('NETRC_URL')
