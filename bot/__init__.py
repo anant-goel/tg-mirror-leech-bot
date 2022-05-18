@@ -612,9 +612,9 @@ except KeyError:
 try:
     IMAGE_URL = getConfig('IMAGE_URL')
     if len(IMAGE_URL) == 0:
-        IMAGE_URL = 'https://telegra.ph/file/dc3473634c63051496302.jpg'
+        IMAGE_URL = 'https://telegra.ph/file/6837b00829323edbca372.jpg'
 except KeyError:
-    IMAGE_URL = 'https://telegra.ph/file/dc3473634c63051496302.jpg'    
+    IMAGE_URL = 'https://telegra.ph/file/6837b00829323edbca372.jpg'    
 
 updater = tgUpdater(token=BOT_TOKEN, request_kwargs={'read_timeout': 20, 'connect_timeout': 15})
 bot = updater.bot
