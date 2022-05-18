@@ -1,6 +1,14 @@
 import logging
 import socket
 import faulthandler
+import logging
+import os
+import threading
+import time
+import random
+import string
+import subprocess
+import requests
 
 from telegram.ext import Updater as tgUpdater
 from qbittorrentapi import Client as qbClient
@@ -25,6 +33,17 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 
 LOGGER = logging.getLogger(__name__)
+
+CONFIG_FILE_URL = os.environ.get('CONFIG_FILE_URL', None)
+if CONFIG_FILE_URL is not None:
+    res = requests.get(CONFIG_FILE_URL)
+    if res.status_code == 200:
+        with open('config.env', 'wb+') as f:
+            f.write(res.content)
+            f.close()
+    else:
+        logging.error(res.status_code)
+
 
 load_dotenv('config.env', override=True)
 
